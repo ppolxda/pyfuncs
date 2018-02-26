@@ -1,0 +1,63 @@
+# -*- coding: utf-8 -*-
+u"""
+@create: 2017-02-14 18:52:10.
+
+@author:
+
+@desc: 错误码生成
+"""
+import gettext
+
+try:
+    _("test")
+except NameError:
+    def _(a_string):
+        "Default implementation of the gettext string translation function: no translation"
+        return a_string
+except TypeError:
+    # during doctesting, _ might mean something else
+    pass
+
+
+# if not __debug__:
+#     gettext.translation(
+#         'peishou_houtai',
+#         localedir='./config/locales',
+#         languages=['zh']
+#     ).install()
+#
+#     gettext.translation(
+#         'peishou_houtai_error',
+#         localedir='./config/locales',
+#         languages=['zh']
+#     ).install()
+
+
+class error_info(object):
+
+    # Array Begin
+    {% for row in error_infos %}
+    ERROR_{{ row[1] }} = '{{ row[0] }}'
+    {% end %}
+    # Array End
+
+    __error_describe = {
+        # Array Begin
+        {% for row in error_infos %}
+        ERROR_{{ row[1] }}: _(u'{{ row[2] }}'), {% end %}
+        # Array End
+    }
+
+
+    @classmethod
+    def error_text(cls, error_num, **kwarg):
+        u"""获取错误提示."""
+        result = cls.__error_describe.get(error_num, _(u'未知错误'))
+
+        if result.find('{') and result.find('}'):
+            try:
+                return result.format(**kwarg)
+            except:
+                return result
+        else:
+            return result
