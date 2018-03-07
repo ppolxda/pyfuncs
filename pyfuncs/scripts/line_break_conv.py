@@ -39,7 +39,10 @@ def main():
                        if re.match(SUFFIX_REGIX, val) is not None]
 
     if isfile(args.path):
-        print(args.path)
+        try:
+            print(args.path)
+        except IOError as ex:
+            print('ioerr', ex)
         lb.conv_file(args.path, args.mode, args.encode)
     else:
         # onlyfiles = [f for f in listdir(
@@ -54,7 +57,10 @@ def main():
                 if args.suffix and suffix not in args.suffix:
                     continue
 
-                print(filepath)
+                try:
+                    print(filepath)
+                except IOError as ex:
+                    print('ioerr', ex)
                 lb.conv_file(filepath, args.mode, args.encode)
 
             # for name in dirs:

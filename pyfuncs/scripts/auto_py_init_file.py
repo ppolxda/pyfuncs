@@ -7,7 +7,7 @@ from os import walk
 from os.path import abspath, join, isfile, exists
 
 
-SUFFIX_REGIX = re.compile(r'^\*.[a-zA-z9-9]{1,}$')
+# SUFFIX_REGIX = re.compile(r'^\*[\w\W]{1,}$')
 
 
 def main():
@@ -30,8 +30,8 @@ def main():
         args.suffix = ['.git', '.svn', '.vscode']
     else:
         args.suffix = args.suffix.split(',')
-        args.suffix = [val[val.rfind('.'):] for val in args.suffix
-                       if re.match(SUFFIX_REGIX, val) is not None]
+        # args.suffix = [val[val.rfind('.'):] for val in args.suffix
+        #                if re.match(SUFFIX_REGIX, val) is not None]
 
     for root, dirs, _ in walk(args.path):
         for key in args.suffix:
@@ -41,11 +41,15 @@ def main():
         for name in dirs:
             root = abspath(root)
             filepath = join(root, name)
-            print(filepath)
 
             filepath += '/__init__.py'
             if exists(filepath):
                 continue
+
+            try:
+                print(filepath)
+            except IOError as ex:
+                print('ioerrir', ex)
 
             open(filepath, 'w').close()
 
