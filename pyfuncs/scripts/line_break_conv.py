@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, division, print_function, absolute_import
+from __future__ import unicode_literals, division, print_function, absolute_import  # noqa
 import re
 import sys
 import argparse
@@ -7,7 +7,7 @@ from os import walk
 from os.path import isfile, join
 from pyfuncs.scripts import line_break as lb
 
-SUFFIX_REGIX = re.compile('^\*.[a-zA-z9-9]{1,}$')
+SUFFIX_REGIX = re.compile(r'^\*.[a-zA-z9-9]{1,}$')
 
 
 def main():
@@ -46,7 +46,7 @@ def main():
         #     args.path) if isfile(join(args.path, f))]
         # print(onlyfiles)
 
-        for root, dirs, files in walk(args.path):
+        for root, _, files in walk(args.path):
             for name in files:
                 suffix = name[name.rfind('.'):]
                 filepath = join(root, name)
