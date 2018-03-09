@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, division, print_function, absolute_import  # noqa
-import re
+# import re
 import sys
 import argparse
 from os import walk
@@ -15,7 +15,7 @@ def main():
         description='auto_py_init_file.')
     parser.add_argument('path', nargs='?', help='file path default "./"')
     parser.add_argument(
-        '--suffix', help='suffix filter(ex: .git,.svn) default(.git,.svn,.vscode)')
+        '--suffix', help='suffix filter(ex: .git,.svn) default(.git,.svn,.vscode,__pycache__)')
     args = parser.parse_args()
 
     if not args.path:
@@ -26,10 +26,11 @@ def main():
         parser.print_help()
         return
 
+    defult_suffix = ['.git', '.svn', '.vscode', '__pycache__']
     if not args.suffix:
-        args.suffix = ['.git', '.svn', '.vscode']
+        args.suffix = defult_suffix
     else:
-        args.suffix = args.suffix.split(',')
+        args.suffix = args.suffix.split(',') + defult_suffix
         # args.suffix = [val[val.rfind('.'):] for val in args.suffix
         #                if re.match(SUFFIX_REGIX, val) is not None]
 
