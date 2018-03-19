@@ -4,7 +4,7 @@ from __future__ import unicode_literals, division, print_function, absolute_impo
 import sys
 import argparse
 from os import walk
-from os.path import abspath, join, isfile, exists
+from os.path import abspath, join, isdir, exists
 
 
 # SUFFIX_REGIX = re.compile(r'^\*[\w\W]{1,}$')
@@ -21,8 +21,9 @@ def main():
     if not args.path:
         args.path = './'
 
-    if args.path != './' and not isfile(args.path):
-        print('You must supply a path\n', file=sys.stderr)
+    if args.path != './' and not isdir(args.path):
+        print('You must supply a path[{}][{}]\n'.format(
+            args.path, isdir(args.path)), file=sys.stderr)
         parser.print_help()
         return
 
