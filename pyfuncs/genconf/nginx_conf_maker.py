@@ -140,6 +140,8 @@ def main():
         'genconf/template/nginx_template.conf')
     parser.add_argument(
         '--out_path', help='file path default:./output/nginx.conf')
+    parser.add_argument(
+        '--debug', help='gen debug config default:false')
     parser.add_argument('--encode', help='file encode default:utf8')
     args = parser.parse_args()
 
@@ -158,6 +160,11 @@ def main():
     if not args.encode:
         args.encode = 'utf8'
 
+    if not args.debug:
+        args.debug = False
+    else:
+        args.debug = bool(args.debug)
+
     with codecs.open(args.tmpl_path, encoding=args.encode) as fs:
         template_obj = template.Template(fs.read())
     config_json = open_conf(args.path, args.encode)
@@ -167,16 +174,16 @@ def main():
         nginx_servers=config_json['nginx_servers'],
         servers=config_json['servers'],
         run_mode=config_json['run_mode'],
-        debug_config=False
+        debug_config=args.debug
     )
     save_conf(args.out_path, data, args.encode)
-    data = template_obj.generate(
-        nginx_servers=config_json['nginx_servers'],
-        servers=config_json['servers'],
-        run_mode=config_json['run_mode'],
-        debug_config=True
-    )
-    save_conf(args.out_path + '.debug.conf', data, args.encode)
+    # data = template_obj.generate(
+    #     nginx_servers=config_json['nginx_servers'],
+    #     servers=config_json['servers'],
+    #     run_mode=config_json['run_mode'],
+    #     debug_config=args.debug
+    # )
+    # save_conf(args.out_path + '.debug.conf', data, args.encode)
 
 
 if __name__ == '__main__':

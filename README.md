@@ -13,7 +13,13 @@ pip install git+https://github.com/ppolxda/pyfuncs
 协助处理github换行符转换问题
 
 ```bash
-python -m pyfuncs.genconf.nginx_conf_maker "./" --suffix=*.go,*.py
+python -m pyfuncs.scripts.line_break_conv ./ --suffix=*.go,*.py
+```
+
+## auto_py_init_file 自动创建"__init__.py"空文件
+
+```bash
+python -m pyfuncs.scripts.auto_py_init_file ./ --suffix=.git,.svn,.vscode,__pycache__
 ```
 
 ## 简易配置生成工具
@@ -138,8 +144,17 @@ python -m pyfuncs.genconf.nginx_conf_maker "./" --suffix=*.go,*.py
 
 ### nginx_conf_maker nginx配置生成脚本
 
+#### 生成debug配置，只有一个ip生效
+
+```bash
+python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf --debug=True
+```
+
+#### 生成release配置，所有ip生效
+
 ```bash
 python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf
+python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf --debug=True
 ```
 
 ### supervisord_conf_maker supervisord配置生成脚本

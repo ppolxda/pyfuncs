@@ -15,7 +15,8 @@ def main():
         description='auto_py_init_file.')
     parser.add_argument('path', nargs='?', help='file path default "./"')
     parser.add_argument(
-        '--suffix', help='suffix filter(ex: .git,.svn) default(.git,.svn,.vscode,__pycache__)')
+        '--suffix', help='suffix filter(ex: .git,.svn) '
+        'default(.git,.svn,.vscode,__pycache__)')
     args = parser.parse_args()
 
     if not args.path:
