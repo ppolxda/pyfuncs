@@ -7,7 +7,7 @@ from os import walk
 from os.path import isfile, join
 from pyfuncs.scripts import line_break as lb
 
-SUFFIX_REGIX = re.compile('^\*.[a-zA-z9-9]{1,}$')
+SUFFIX_REGIX = re.compile(r'^\*.[a-zA-z9-9]{1,}$')
 
 
 def main():
@@ -39,14 +39,17 @@ def main():
                        if re.match(SUFFIX_REGIX, val) is not None]
 
     if isfile(args.path):
-        print(args.path)
+        try:
+            print(args.path)
+        except IOError as ex:
+            print('ioerr', ex)
         lb.conv_file(args.path, args.mode, args.encode)
     else:
         # onlyfiles = [f for f in listdir(
         #     args.path) if isfile(join(args.path, f))]
         # print(onlyfiles)
 
-        for root, dirs, files in walk(args.path):
+        for root, _, files in walk(args.path):
             for name in files:
                 suffix = name[name.rfind('.'):]
                 filepath = join(root, name)
@@ -54,7 +57,10 @@ def main():
                 if args.suffix and suffix not in args.suffix:
                     continue
 
-                print(filepath)
+                try:
+                    print(filepath)
+                except IOError as ex:
+                    print('ioerr', ex)
                 lb.conv_file(filepath, args.mode, args.encode)
 
             # for name in dirs:
