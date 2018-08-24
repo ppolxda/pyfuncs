@@ -154,7 +154,6 @@ python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --
 
 ```bash
 python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf
-python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf --debug=True
 ```
 
 ### supervisord_conf_maker supervisord配置生成脚本
