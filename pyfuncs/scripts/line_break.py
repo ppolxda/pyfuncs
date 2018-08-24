@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, division, print_function, absolute_import
+from __future__ import unicode_literals, division, print_function, absolute_import  # noqa
 import re
 import os
 import sys
@@ -50,7 +50,8 @@ def conv_file(filepath, mode=None, encoding=None, out_filepath=None):
     if mode not in MODES:
         if sys.platform.startswith('linux'):
             mode = MODE_UNIX
-        elif sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
+        elif sys.platform.startswith('win32') or \
+                sys.platform.startswith('cygwin'):
             mode = MODE_WINDOWS
         elif sys.platform.startswith('darwin'):
             mode = MODE_MAC
