@@ -1,5 +1,18 @@
 ﻿# pyfuncs
 
+<!-- TOC -->
+
+- [pyfuncs](#pyfuncs)
+    - [模块安装](#模块安装)
+    - [换行符转换处理（line_break_conv）](#换行符转换处理line_break_conv)
+    - [自动创建"__init__.py"空文件（auto_py_init_file）](#自动创建__init__py空文件auto_py_init_file)
+    - [简易配置生成工具](#简易配置生成工具)
+        - [nginx配置生成脚本（nginx_conf_maker）](#nginx配置生成脚本nginx_conf_maker)
+        - [supervisord配置生成脚本（supervisord_conf_maker）](#supervisord配置生成脚本supervisord_conf_maker)
+        - [配置生成脚本json配置文件说明](#配置生成脚本json配置文件说明)
+
+<!-- /TOC -->
+
 ## 模块安装
 
 pip 安装
@@ -8,7 +21,7 @@ pip 安装
 pip install git+https://github.com/ppolxda/pyfuncs
 ```
 
-## line_break_conv 换行符转换处理
+## 换行符转换处理（line_break_conv）
 
 协助处理github换行符转换问题
 
@@ -16,7 +29,7 @@ pip install git+https://github.com/ppolxda/pyfuncs
 python -m pyfuncs.scripts.line_break_conv ./ --suffix=*.go,*.py
 ```
 
-## auto_py_init_file 自动创建"__init__.py"空文件
+## 自动创建"__init__.py"空文件（auto_py_init_file）
 
 ```bash
 python -m pyfuncs.scripts.auto_py_init_file ./ --suffix=.git,.svn,.vscode,__pycache__
@@ -24,7 +37,29 @@ python -m pyfuncs.scripts.auto_py_init_file ./ --suffix=.git,.svn,.vscode,__pyca
 
 ## 简易配置生成工具
 
-### 脚本json配置文件说明，见文件./tests/service_config.json
+### nginx配置生成脚本（nginx_conf_maker）
+
+生成debug配置，只有一个ip生效
+
+```bash
+python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf --debug=True
+```
+
+生成release配置，所有ip生效
+
+```bash
+python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf
+```
+
+### supervisord配置生成脚本（supervisord_conf_maker）
+
+```bash
+python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_path=./tests/nginx.conf
+```
+
+### 配置生成脚本json配置文件说明
+
+见文件./tests/service_config.json
 
 ```js
 {
@@ -140,24 +175,4 @@ python -m pyfuncs.scripts.auto_py_init_file ./ --suffix=.git,.svn,.vscode,__pyca
         }
     ]
 }
-```
-
-### nginx_conf_maker nginx配置生成脚本
-
-#### 生成debug配置，只有一个ip生效
-
-```bash
-python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf --debug=True
-```
-
-#### 生成release配置，所有ip生效
-
-```bash
-python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf
-```
-
-### supervisord_conf_maker supervisord配置生成脚本
-
-```bash
-python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_path=./tests/nginx.conf
 ```
