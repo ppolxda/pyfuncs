@@ -99,6 +99,8 @@ def init_config(config_json):
 
         # 检查端口范围
         ports = val['progam_ports']
+        ports[1] += 1
+
         if ports[1] <= 1000 or ports[0] <= 1000:
             raise Exception(
                 'ports 配置错误 [service_name {}][ports {}]'.format(
