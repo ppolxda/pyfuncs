@@ -43,54 +43,17 @@ def save_conf(path, data, encoding='utf8'):
 
 
 def init_config(config_json):
-    http_config = {}
-    http_config_port = set()
-    for val in config_json['nginx_servers']:
-        if val['server_name'] in http_config:
-            raise Exception(
-                'nginx_servers 配置错误 server_name名称重复 '
-                '[server_name {}]'.format(val['server_name']))
+    server_names = [val['service_name'] for val in config_json['servers']]
+    server_names.sort()
 
-        http_config[val['server_name']] = val
-
-        if 'listen' not in val or val['listen'] in http_config_port:
-            raise Exception(
-                'nginx_servers 配置错误 端口冲突 '
-                '[server_name {}][listen {}]'.format(
-                    val['server_name'], val['listen']))
-
-        http_config_port.add(val['listen'])
+    # 检查server_names是否重复
+    if len(server_names) != len(set(server_names)):
+        raise Exception(
+            'servers 配置错误 service_name名称重复 ')
 
     port_set = {}
+    http_config_port = set()
     for val in config_json['servers']:
-        if 'nginx_mode' not in val or \
-                val['nginx_mode'] not in ['http', 'websocket', 'tcp']:
-            raise Exception(
-                'nginx_mode 配置错误 '
-                '[service_name {}][nginx_mode {}]'.format(
-                    val['service_name'], val['nginx_mode']))
-
-        if val['nginx_mode'] == 'tcp':
-            if not isinstance(val['nginx_uri'], int):
-                raise Exception(
-                    'nginx_uri 配置错误 如果配置nginx_mode=tcp nginx_uri 必须是有效端口（整型数）'
-                    '[service_name {}][nginx_mode {}]'.format(
-                        val['service_name'], val['nginx_mode']))
-
-            if val['nginx_uri'] in http_config_port:
-                raise Exception(
-                    'nginx_servers 配置错误 tcp端口冲突 '
-                    '[service_name {}][listen {}]'.format(
-                        val['service_name'], val['nginx_uri']))
-
-            http_config_port.add(val['nginx_uri'])
-
-        if 'nginx_server_name' not in val or \
-                val['nginx_server_name'] not in http_config:
-            raise Exception(
-                'nginx_server_name 配置错误 服务找到对应服务 '
-                '[service_name {}][nginx_server_name {}]'.format(
-                    val['service_name'], val['nginx_server_name']))
 
         if val['progam_run_mode'] not in config_json['run_mode']:
             raise Exception(

@@ -9,17 +9,6 @@
         "python37": "/usr/bin/python3.7 {progam_cwd}/{progam_name}.py {args}",
         "exe": "{progam_cwd}/{progam_name} {args}"
     },
-    // 运行模式配置，配置启动参数
-    "nginx_servers": [
-        {
-            // nginx服务名称，索引下面nginx_server_name
-            "server_name": "localhost",
-            "listen": 10000
-            // "ssl": "on",
-            // "ssl_certificate": "/home/bymiao/ssl/price.pem",
-            // "ssl_certificate_key": "//home/bymiao/ssl/price.key"
-        }
-    ],
     // 服务信息配置
     "servers": [
         {
@@ -41,15 +30,7 @@
                 "--config_file=./config/main_config.ini",
                 "--listening={port_high}%(process_num)02d",
                 "--logging_file=./config/logging/logging_%(process_num)02d.ini"
-            ],
-            // 是否启动nginx_open
-            "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
-            "nginx_uri": "/httppage",
-            // nginx模式（http|websocket|tcp）
-            "nginx_mode": "http",
-            // nginx服务名称
-            "nginx_server_name": "localhost"
+            ]
         },
         {
             // 服务名称
@@ -70,15 +51,7 @@
                 "--config_file=./config/main_config.ini",
                 "--listening={port_high}%(process_num)02d",
                 "--logging_file=./config/logging/logging_%(process_num)02d.ini"
-            ],
-            // 是否启动nginx_open
-            "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
-            "nginx_uri": "/wspage",
-            // nginx模式（http|websocket|tcp）
-            "nginx_mode": "websocket",
-            // nginx服务名称
-            "nginx_server_name": "localhost"
+            ]
         },
         {
             // 服务名称
@@ -99,15 +72,7 @@
                 "--config_file=./config/main_config.ini",
                 "--listening={port_high}%(process_num)02d",
                 "--logging_file=./config/logging/logging_%(process_num)02d.ini"
-            ],
-            // 是否启动nginx_open
-            "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
-            "nginx_uri": 4300,
-            // nginx模式（http|websocket|tcp）
-            "nginx_mode": "tcp",
-            // nginx服务名称
-            "nginx_server_name": "localhost"
+            ]
         }
     ]
 }

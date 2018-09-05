@@ -1,0 +1,64 @@
+{
+    // 运行模式配置，配置启动参数
+    "nginx_servers": [
+        {
+            // nginx服务名称，索引下面nginx_server_name
+            "server_name": "localhost",
+            "listen": 10000
+            // "ssl": "on",
+            // "ssl_certificate": "/home/bymiao/ssl/price.pem",
+            // "ssl_certificate_key": "//home/bymiao/ssl/price.key"
+        }
+    ],
+    // 服务信息配置
+    "servers": [
+        {
+            // 服务名称
+            "service_name": "httpserver",
+            // 服务地址
+            "progam_addr": "localhost",
+            // 服务端口
+            "progam_ports": [4000, 4010],
+            // 是否启动nginx_open
+            "nginx_open": true,
+            // nginx虚拟地址，TCP时输入端口
+            "nginx_uri": "/httppage",
+            // nginx模式（http|websocket|tcp）
+            "nginx_mode": "http",
+            // nginx服务名称
+            "nginx_server_name": "localhost"
+        },
+        {
+            // 服务名称
+            "service_name": "websocket",
+            // 服务地址
+            "progam_addr": "localhost",
+            // 服务端口
+            "progam_ports": [4100, 4110],
+            // 是否启动nginx_open
+            "nginx_open": true,
+            // nginx虚拟地址，TCP时输入端口
+            "nginx_uri": "/wspage",
+            // nginx模式（http|websocket|tcp）
+            "nginx_mode": "websocket",
+            // nginx服务名称
+            "nginx_server_name": "localhost"
+        },
+        {
+            // 服务名称
+            "service_name": "tcptest",
+            // 服务地址
+            "progam_addr": "localhost",
+            // 服务端口
+            "progam_ports": [4200, 4210],
+            // 是否启动nginx_open
+            "nginx_open": true,
+            // nginx虚拟地址，TCP时输入端口
+            "nginx_uri": 4300,
+            // nginx模式（http|websocket|tcp）
+            "nginx_mode": "tcp",
+            // nginx服务名称
+            "nginx_server_name": "localhost"
+        }
+    ]
+}

@@ -43,25 +43,35 @@ def save_conf(path, data, encoding='utf8'):
 
 
 def init_config(config_json):
-    http_config = {}
-    http_config_port = set()
-    for val in config_json['nginx_servers']:
-        if val['server_name'] in http_config:
-            raise Exception(
-                'nginx_servers 配置错误 server_name名称重复 '
-                '[server_name {}]'.format(val['server_name']))
+    server_names = [val['service_name'] for val in config_json['servers']]
+    server_names.sort()
+    nginx_server_names = [val['server_name']
+                          for val in config_json['nginx_servers']]
+    nginx_server_names.sort()
 
-        http_config[val['server_name']] = val
+    # 检查server_names是否重复
+    if len(server_names) != len(set(server_names)):
+        raise Exception(
+            'servers 配置错误 service_name名称重复 ')
 
-        if 'listen' not in val or val['listen'] in http_config_port:
-            raise Exception(
-                'nginx_servers 配置错误 端口冲突 '
-                '[server_name {}][listen {}]'.format(
-                    val['server_name'], val['listen']))
+    # 检查nginx_server_names是否重复
+    if len(nginx_server_names) != len(set(nginx_server_names)):
+        raise Exception(
+            'nginx_servers 配置错误 server_name名称重复 ')
 
-        http_config_port.add(val['listen'])
+    http_config_port = [val['listen']
+                        for val in config_json['nginx_servers']]
+
+    # 检查nginx_server_names是否重复
+    if len(http_config_port) != len(set(http_config_port)):
+        raise Exception('nginx_servers中nginx服务端口冲突')
+
+    # 制作nginx_servers配置
+    http_config = {val['server_name']: val
+                   for val in config_json['nginx_servers']}
 
     port_set = {}
+    http_config_port = set(http_config_port)
     for val in config_json['servers']:
         if 'nginx_mode' not in val or \
                 val['nginx_mode'] not in ['http', 'websocket', 'tcp']:
@@ -91,11 +101,6 @@ def init_config(config_json):
                 'nginx_server_name 配置错误 服务找到对应服务 '
                 '[service_name {}][nginx_server_name {}]'.format(
                     val['service_name'], val['nginx_server_name']))
-
-        if val['progam_run_mode'] not in config_json['run_mode']:
-            raise Exception(
-                'run_mode 配置错误 [service_name {}][run_mode {}]'.format(
-                    val['service_name'], val['progam_run_mode']))
 
         # 检查端口范围
         ports = val['progam_ports']
@@ -175,17 +180,10 @@ def main():
     data = template_obj.generate(
         nginx_servers=config_json['nginx_servers'],
         servers=config_json['servers'],
-        run_mode=config_json['run_mode'],
+        # run_mode=config_json['run_mode'],
         debug_config=args.debug
     )
     save_conf(args.out_path, data, args.encode)
-    # data = template_obj.generate(
-    #     nginx_servers=config_json['nginx_servers'],
-    #     servers=config_json['servers'],
-    #     run_mode=config_json['run_mode'],
-    #     debug_config=args.debug
-    # )
-    # save_conf(args.out_path + '.debug.conf', data, args.encode)
 
 
 if __name__ == '__main__':
