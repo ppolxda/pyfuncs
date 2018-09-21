@@ -44,13 +44,13 @@ def main():
     print('sregix:', sys.argv[2])
 
     vfile = {re.match(video_regix, name).group(1): name
-             for name in os.listdir('./')
+             for name in os.listdir(DEFAULT_PATH)
              if re.match(video_regix, name) is not None and
              len(re.match(video_regix, name).groups()) == 1 and
              re.match(INDEX_REGIX, re.match(video_regix, name).group(1)) is not None}
 
     sfile = {re.match(sub_regix, name).group(1): name
-             for name in os.listdir('./')
+             for name in os.listdir(DEFAULT_PATH)
              if re.match(sub_regix, name) is not None and
              len(re.match(sub_regix, name).groups()) == 1 and
              re.match(INDEX_REGIX, re.match(sub_regix, name).group(1)) is not None}

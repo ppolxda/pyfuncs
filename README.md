@@ -10,6 +10,7 @@
         - [nginx配置生成脚本（nginx_conf_maker）](#nginx配置生成脚本nginx_conf_maker)
         - [supervisord配置生成脚本（supervisord_conf_maker）](#supervisord配置生成脚本supervisord_conf_maker)
         - [配置生成脚本json配置文件说明](#配置生成脚本json配置文件说明)
+    - [外挂字幕重命名脚本（sub_rename）](#外挂字幕重命名脚本sub_rename)
 
 <!-- /TOC -->
 
@@ -175,4 +176,15 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
         }
     ]
 }
+```
+
+## 外挂字幕重命名脚本（sub_rename）
+
+外挂字幕替换成为视频名称相同格式名称
+参数1 必填 视频文件名称格式 视频编号替换宏名称 {num} 如 信用欺诈师JP[01].mp4 -> 信用欺诈师JP[{num}].mp4
+参数2 必填 字幕文件名称格式 字幕编号替换宏名称 {num} 如 信用欺诈师JP[01][sc].ass -> 信用欺诈师JP[{num}][sc].ass
+参数3 选填 追加后缀 如输入.sc 字幕文件最后名称为  信用欺诈师JP[01].sc.ass
+
+```bash
+python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{num}.Chi_Jap.HDTVrip.1280X720-ZhuixinFan.mp4" "信用欺诈师JP.Ep{num}.HD720P中日字幕.ass" ".sc"
 ```
