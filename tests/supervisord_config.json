@@ -20,7 +20,7 @@
             "progam_cwd": "/home/httpserver/service1",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4000, 4010],
@@ -41,7 +41,7 @@
             "progam_cwd": "/home/httpserver/websocket",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4100, 4110],
@@ -62,7 +62,7 @@
             "progam_cwd": "/home/httpserver/websocket",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4200, 4210],

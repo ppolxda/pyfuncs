@@ -74,7 +74,8 @@ def init_config(config_json):
     http_config_port = set(http_config_port)
     for val in config_json['servers']:
         if 'nginx_mode' not in val or \
-                val['nginx_mode'] not in ['http', 'websocket', 'tcp']:
+                val['nginx_mode'] not in [
+                    'http', 'websocket', 'tcp', 'static']:
             raise Exception(
                 'nginx_mode 配置错误 '
                 '[service_name {}][nginx_mode {}]'.format(
@@ -101,6 +102,9 @@ def init_config(config_json):
                 'nginx_server_name 配置错误 服务找到对应服务 '
                 '[service_name {}][nginx_server_name {}]'.format(
                     val['service_name'], val['nginx_server_name']))
+
+        if val['nginx_mode'] == 'static':
+            continue
 
         # 检查端口范围
         ports = val['progam_ports']

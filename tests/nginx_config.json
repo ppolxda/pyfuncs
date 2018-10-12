@@ -15,15 +15,15 @@
         {
             // 服务名称
             "service_name": "httpserver",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4000, 4010],
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
+            // nginx虚拟地址，（tcp：TCP时输入端口）
             "nginx_uri": "/httppage",
-            // nginx模式（http|websocket|tcp）
+            // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "http",
             // nginx服务名称
             "nginx_server_name": "localhost"
@@ -31,15 +31,15 @@
         {
             // 服务名称
             "service_name": "websocket",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4100, 4110],
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
+            // nginx虚拟地址，（tcp：TCP时输入端口）
             "nginx_uri": "/wspage",
-            // nginx模式（http|websocket|tcp）
+            // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "websocket",
             // nginx服务名称
             "nginx_server_name": "localhost"
@@ -47,16 +47,14 @@
         {
             // 服务名称
             "service_name": "tcptest",
-            // 服务地址
-            "progam_addr": "localhost",
-            // 服务端口
-            "progam_ports": [4200, 4210],
+            // 服务地址（static：是本地目录路径）
+            "progam_addr": "/home/webstatic/",
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
-            "nginx_uri": 4300,
-            // nginx模式（http|websocket|tcp）
-            "nginx_mode": "tcp",
+            // nginx虚拟地址，（tcp：TCP时输入端口）
+            "nginx_uri": "^~ /trade",
+            // nginx模式(http|websocket|tcp|static)
+            "nginx_mode": "static",
             // nginx服务名称
             "nginx_server_name": "localhost"
         }

@@ -96,7 +96,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             "progam_cwd": "/home/httpserver/service1",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4000, 4010],
@@ -109,9 +109,9 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             ],
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
+            // nginx虚拟地址，（tcp：TCP时输入端口）
             "nginx_uri": "/httppage",
-            // nginx模式（http|websocket|tcp）
+            // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "http",
             // nginx服务名称
             "nginx_server_name": "localhost"
@@ -125,7 +125,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             "progam_cwd": "/home/httpserver/websocket",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4100, 4110],
@@ -138,9 +138,9 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             ],
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
+            // nginx虚拟地址，（tcp：TCP时输入端口）
             "nginx_uri": "/wspage",
-            // nginx模式（http|websocket|tcp）
+            // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "websocket",
             // nginx服务名称
             "nginx_server_name": "localhost"
@@ -154,7 +154,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             "progam_cwd": "/home/httpserver/websocket",
             // run_mode 运行模式见run_mode设置（pipenv|python|exe|python2|python3）
             "progam_run_mode": "pipenv",
-            // 服务地址
+            // 服务地址（static：是本地目录路径）
             "progam_addr": "localhost",
             // 服务端口
             "progam_ports": [4200, 4210],
@@ -167,9 +167,9 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
             ],
             // 是否启动nginx_open
             "nginx_open": true,
-            // nginx虚拟地址，TCP时输入端口
+            // nginx虚拟地址，（tcp：TCP时输入端口）
             "nginx_uri": 4300,
-            // nginx模式（http|websocket|tcp）
+            // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "tcp",
             // nginx服务名称
             "nginx_server_name": "localhost"
