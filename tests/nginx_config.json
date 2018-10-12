@@ -56,7 +56,17 @@
             // nginx模式(http|websocket|tcp|static)
             "nginx_mode": "static",
             // nginx服务名称
-            "nginx_server_name": "localhost"
+            "nginx_server_name": "localhost",
+            // nginx附加参数
+            "nginx_parames": {
+                "try_files": "$uri $uri/ /trade.html =404"
+            },
+            // nginx附加文本
+            "nginx_text": [
+                "if ($request_filename ~* ^.*?\\.(txt|doc|pdf|rar|gz|zip|docx|exe|xlsx|ppt|apk)$){",
+                "    add_header Content-Disposition: 'attachment;'",
+                "}"
+            ]
         }
     ]
 }
