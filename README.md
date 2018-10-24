@@ -200,7 +200,7 @@ python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{
 升级脚本产出流程
 
 - 通过navicat结构对比生成变更脚本（sql_upgrade_src.sql）
-- 运行sql_upgrade_src脚本输出三个脚本（mod|add|drop）
+- 运行sql_upgrade脚本输出三个脚本（mod|add|drop）
 - 脚本运行顺序 mod -> add -> drop
 - 重新比较数据结构检查更新
 
