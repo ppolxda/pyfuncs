@@ -1,21 +1,21 @@
-﻿# pyfuncs
+﻿# 1. pyfuncs
 
 <!-- TOC -->
 
-- [pyfuncs](#pyfuncs)
-    - [模块安装](#模块安装)
-    - [换行符转换处理（line_break_conv）](#换行符转换处理line_break_conv)
-    - [自动创建"__init__.py"空文件（auto_py_init_file）](#自动创建__init__py空文件auto_py_init_file)
-    - [简易配置生成工具](#简易配置生成工具)
-        - [nginx配置生成脚本（nginx_conf_maker）](#nginx配置生成脚本nginx_conf_maker)
-        - [supervisord配置生成脚本（supervisord_conf_maker）](#supervisord配置生成脚本supervisord_conf_maker)
-        - [配置生成脚本json配置文件说明](#配置生成脚本json配置文件说明)
-    - [外挂字幕重命名脚本（sub_rename）](#外挂字幕重命名脚本sub_rename)
-    - [数据库升级脚本输出（sql_upgrade）](#数据库升级脚本输出sql_upgrade)
+- [1. pyfuncs](#1-pyfuncs)
+    - [1.1. 模块安装](#11-模块安装)
+    - [1.2. 换行符转换处理（line_break_conv）](#12-换行符转换处理line_break_conv)
+    - [1.3. 自动创建"__init__.py"空文件（auto_py_init_file）](#13-自动创建__init__py空文件auto_py_init_file)
+    - [1.4. 简易配置生成工具](#14-简易配置生成工具)
+        - [1.4.1. nginx配置生成脚本（nginx_conf_maker）](#141-nginx配置生成脚本nginx_conf_maker)
+        - [1.4.2. supervisord配置生成脚本（supervisord_conf_maker）](#142-supervisord配置生成脚本supervisord_conf_maker)
+        - [1.4.3. 配置生成脚本json配置文件说明](#143-配置生成脚本json配置文件说明)
+    - [1.5. 外挂字幕重命名脚本（sub_rename）](#15-外挂字幕重命名脚本sub_rename)
+    - [1.6. 数据库升级脚本输出（sql_upgrade）](#16-数据库升级脚本输出sql_upgrade)
 
 <!-- /TOC -->
 
-## 模块安装
+## 1.1. 模块安装
 
 pip 安装
 
@@ -23,7 +23,7 @@ pip 安装
 pip install git+https://github.com/ppolxda/pyfuncs
 ```
 
-## 换行符转换处理（line_break_conv）
+## 1.2. 换行符转换处理（line_break_conv）
 
 协助处理github换行符转换问题
 
@@ -31,15 +31,15 @@ pip install git+https://github.com/ppolxda/pyfuncs
 python -m pyfuncs.scripts.line_break_conv ./ --suffix=*.go,*.py
 ```
 
-## 自动创建"__init__.py"空文件（auto_py_init_file）
+## 1.3. 自动创建"__init__.py"空文件（auto_py_init_file）
 
 ```bash
 python -m pyfuncs.scripts.auto_py_init_file ./ --suffix=.git,.svn,.vscode,__pycache__
 ```
 
-## 简易配置生成工具
+## 1.4. 简易配置生成工具
 
-### nginx配置生成脚本（nginx_conf_maker）
+### 1.4.1. nginx配置生成脚本（nginx_conf_maker）
 
 生成debug配置，只有一个ip生效
 
@@ -53,13 +53,13 @@ python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --
 python -m pyfuncs.genconf.nginx_conf_maker --path=./tests/service_config.json --out_path=./tests/nginx.conf
 ```
 
-### supervisord配置生成脚本（supervisord_conf_maker）
+### 1.4.2. supervisord配置生成脚本（supervisord_conf_maker）
 
 ```bash
 python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_path=./tests/nginx.conf
 ```
 
-### 配置生成脚本json配置文件说明
+### 1.4.3. 配置生成脚本json配置文件说明
 
 见文件./tests/service_config.json
 
@@ -179,7 +179,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
 }
 ```
 
-## 外挂字幕重命名脚本（sub_rename）
+## 1.5. 外挂字幕重命名脚本（sub_rename）
 
 外挂字幕替换成为视频名称相同格式名称
 
@@ -193,7 +193,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
 python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{num}.Chi_Jap.HDTVrip.1280X720-ZhuixinFan.mp4" "信用欺诈师JP.Ep{num}.HD720P中日字幕.ass" ".sc"
 ```
 
-## 数据库升级脚本输出（sql_upgrade）
+## 1.6. 数据库升级脚本输出（sql_upgrade）
 
 主要处理字段升级ADD字段需要默认值问题
 
