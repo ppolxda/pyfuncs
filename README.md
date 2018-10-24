@@ -11,6 +11,7 @@
         - [supervisord配置生成脚本（supervisord_conf_maker）](#supervisord配置生成脚本supervisord_conf_maker)
         - [配置生成脚本json配置文件说明](#配置生成脚本json配置文件说明)
     - [外挂字幕重命名脚本（sub_rename）](#外挂字幕重命名脚本sub_rename)
+    - [数据库升级脚本输出（sql_upgrade）](#数据库升级脚本输出sql_upgrade)
 
 <!-- /TOC -->
 
@@ -190,4 +191,19 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
 
 ```bash
 python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{num}.Chi_Jap.HDTVrip.1280X720-ZhuixinFan.mp4" "信用欺诈师JP.Ep{num}.HD720P中日字幕.ass" ".sc"
+```
+
+## 数据库升级脚本输出（sql_upgrade）
+
+主要处理字段升级ADD字段需要默认值问题
+
+升级脚本产出流程
+
+- 通过navicat结构对比生成变更脚本（sql_upgrade_src.sql）
+- 运行sql_upgrade_src脚本输出三个脚本（mod|add|drop）
+- 脚本运行顺序 mod -> add -> drop
+- 重新比较数据结构检查更新
+
+```bash
+python -m pyfuncs.scripts.sql_upgrade --input ./sql_upgrade_src.sql
 ```
