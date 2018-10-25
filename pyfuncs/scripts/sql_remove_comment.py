@@ -22,6 +22,7 @@ def remove_c_comments(text):
     """ remove c-style comments.
         text: blob of text with comments (can include newlines)
         returns: text with comments removed
+        see: https://www.saltycrane.com/blog/2007/11/remove-c-comments-python/
     """
     pattern = r"""
                             ##  --------- COMMENT ---------

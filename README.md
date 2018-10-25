@@ -211,7 +211,7 @@ python -m pyfuncs.scripts.sql_upgrade --input ./sql_upgrade_src.sql
 
 ## 1.7. 数据库脚本注释移除（sql_remove_comment）
 
-主要处理字段升级ADD字段需要默认值问题
+目前只能移除"--"开头的注释，跟C风格注释
 
 ```bash
 python -m pyfuncs.scripts.sql_remove_comment --input ./sql_upgrade_src.sql
