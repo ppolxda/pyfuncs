@@ -12,6 +12,7 @@
         - [1.4.3. 配置生成脚本json配置文件说明](#143-配置生成脚本json配置文件说明)
     - [1.5. 外挂字幕重命名脚本（sub_rename）](#15-外挂字幕重命名脚本sub_rename)
     - [1.6. 数据库升级脚本输出（sql_upgrade）](#16-数据库升级脚本输出sql_upgrade)
+    - [1.7. 数据库脚本注释移除（sql_remove_comment）](#17-数据库脚本注释移除sql_remove_comment)
 
 <!-- /TOC -->
 
@@ -206,4 +207,12 @@ python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{
 
 ```bash
 python -m pyfuncs.scripts.sql_upgrade --input ./sql_upgrade_src.sql
+```
+
+## 1.7. 数据库脚本注释移除（sql_remove_comment）
+
+主要处理字段升级ADD字段需要默认值问题
+
+```bash
+python -m pyfuncs.scripts.sql_remove_comment --input ./sql_upgrade_src.sql
 ```

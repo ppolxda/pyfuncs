@@ -4,6 +4,7 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "pyfuncs.scripts.line_break_conv",
             "type": "python",
@@ -16,6 +17,18 @@
             ],
             "console": "integratedTerminal"
 
+        },
+        {
+            "name": "pyfuncs.scripts.sql_remove_comment",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "pyfuncs.scripts.sql_remove_comment",
+            "args": [
+                "--input=./tests/sql_upgrade/sql_comment.sql",
+                // "--output=./tests/sql_upgrade/"
+            ],
+            "console": "integratedTerminal"
         },
         {
             "name": "pyfuncs.scripts.sql_upgrade",

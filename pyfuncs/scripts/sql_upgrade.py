@@ -124,6 +124,7 @@ def sql_group(fs):
     alter_lines = []
 
     for i in fs.readlines():
+        i = i.replace('\r', '')
         match = RE_MOD_COLUMN.match(i)
         if match:
             table = match.groupdict()['table']
