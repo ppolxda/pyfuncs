@@ -79,7 +79,7 @@ def main():
     opts = Cmdoptions()
 
     for i in range(opts.count):
-        assert isinstance(opts.input, list)
+        assert isinstance(opts.input, dict)
         config_data = opts.tmpl.generate(
             loggers=opts.input.get('handlers', []),
             main=opts.input.get('main', {}),
