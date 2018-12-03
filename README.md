@@ -1,6 +1,18 @@
 ﻿# 1. pyfuncs
 
-<!-- TOC -->autoauto- [1. pyfuncs](#1-pyfuncs)auto    - [1.1. 模块安装](#11-模块安装)auto    - [1.2. 换行符转换处理（line_break_conv）](#12-换行符转换处理line_break_conv)auto    - [1.3. 自动创建"__init__.py"空文件（auto_py_init_file）](#13-自动创建__init__py空文件auto_py_init_file)auto    - [1.4. 简易配置生成工具](#14-简易配置生成工具)auto        - [1.4.1. nginx配置生成脚本（nginx_conf_maker）](#141-nginx配置生成脚本nginx_conf_maker)auto        - [1.4.2. supervisord配置生成脚本（supervisord_conf_maker）](#142-supervisord配置生成脚本supervisord_conf_maker)auto        - [1.4.3. 配置生成脚本json配置文件说明](#143-配置生成脚本json配置文件说明)auto    - [1.5. 生成日志配置（logger_conf_maker）](#15-生成日志配置logger_conf_maker)auto    - [1.6. 外挂字幕重命名脚本（sub_rename）](#16-外挂字幕重命名脚本sub_rename)auto    - [1.7. 数据库升级脚本输出（sql_upgrade）](#17-数据库升级脚本输出sql_upgrade)auto    - [1.8. 数据库脚本注释移除（sql_remove_comment）](#18-数据库脚本注释移除sql_remove_comment)autoauto<!-- /TOC -->
+- [1. pyfuncs](#1-pyfuncs)
+    - [1.1. 模块安装](#11-%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85)
+    - [1.2. 换行符转换处理（line_break_conv）](#12-%E6%8D%A2%E8%A1%8C%E7%AC%A6%E8%BD%AC%E6%8D%A2%E5%A4%84%E7%90%86linebreakconv)
+    - [1.3. 自动创建"__init__.py"空文件（auto_py_init_file）](#13-%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%22initpy%22%E7%A9%BA%E6%96%87%E4%BB%B6autopyinitfile)
+    - [1.4. 简易配置生成工具](#14-%E7%AE%80%E6%98%93%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7)
+        - [1.4.1. nginx配置生成脚本（nginx_conf_maker）](#141-nginx%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACnginxconfmaker)
+        - [1.4.2. supervisord配置生成脚本（supervisord_conf_maker）](#142-supervisord%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACsupervisordconfmaker)
+        - [1.4.3. 配置生成脚本json配置文件说明](#143-%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACjson%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E)
+        - [1.4.4. 生成日志配置（logger_conf_maker）](#144-%E7%94%9F%E6%88%90%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AEloggerconfmaker)
+    - [1.5. 外挂字幕重命名脚本（sub_rename）](#15-%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95%E9%87%8D%E5%91%BD%E5%90%8D%E8%84%9A%E6%9C%ACsubrename)
+    - [1.6. 数据库升级脚本输出（sql_upgrade）](#16-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7%E8%84%9A%E6%9C%AC%E8%BE%93%E5%87%BAsqlupgrade)
+    - [1.7. 数据库脚本注释移除（sql_remove_comment）](#17-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E6%B3%A8%E9%87%8A%E7%A7%BB%E9%99%A4sqlremovecomment)
+
 
 ## 1.1. 模块安装
 
@@ -166,7 +178,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
 }
 ```
 
-## 1.5. 生成日志配置（logger_conf_maker）
+### 1.4.4. 生成日志配置（logger_conf_maker）
 
 | index     | 参数          |  默认值  |
 | --------  | :------------ | :-------  |
@@ -182,7 +194,7 @@ python -m pyfuncs.genconf.supervisord --path=./tests/service_config.json --out_p
 python -m pyfuncs.genconf.logger_conf_maker --input={tmpl}/logger_default.json
 ```
 
-## 1.6. 外挂字幕重命名脚本（sub_rename）
+## 1.5. 外挂字幕重命名脚本（sub_rename）
 
 外挂字幕替换成为视频名称相同格式名称
 
@@ -196,7 +208,7 @@ python -m pyfuncs.genconf.logger_conf_maker --input={tmpl}/logger_default.json
 python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{num}.Chi_Jap.HDTVrip.1280X720-ZhuixinFan.mp4" "信用欺诈师JP.Ep{num}.HD720P中日字幕.ass" ".sc"
 ```
 
-## 1.7. 数据库升级脚本输出（sql_upgrade）
+## 1.6. 数据库升级脚本输出（sql_upgrade）
 
 主要处理字段升级ADD字段需要默认值问题
 
@@ -211,7 +223,7 @@ python -m pyfuncs.scripts.sub_rename "信用欺诈师JP.The.Confidenceman.JP.Ep{
 python -m pyfuncs.scripts.sql_upgrade --input ./sql_upgrade_src.sql
 ```
 
-## 1.8. 数据库脚本注释移除（sql_remove_comment）
+## 1.7. 数据库脚本注释移除（sql_remove_comment）
 
 目前只能移除"--"开头的注释，跟C风格注释
 
