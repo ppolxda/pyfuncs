@@ -1,0 +1,10 @@
+[
+    {
+        "handler_name": "logging_app",
+        "handler_filepath": "./logs/logging_{0:02d}.log"
+    },
+    {
+        "handler_name": "message_app",
+        "handler_filepath": "./logs/message_{0:02d}.log"
+    }
+]
