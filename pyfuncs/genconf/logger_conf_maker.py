@@ -80,7 +80,10 @@ def main():
 
     for i in range(opts.count):
         assert isinstance(opts.input, list)
-        config_data = opts.tmpl.generate(loggers=opts.input, index=i)
+        config_data = opts.tmpl.generate(
+            loggers=opts.input.get('handlers', []),
+            main=opts.input.get('main', {}),
+            index=i)
 
         with codecs.open(opts.output + '/' + opts.output_fmt.format(i),
                          'w', encoding=opts.encoding) as fs:

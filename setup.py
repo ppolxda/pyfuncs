@@ -12,7 +12,7 @@ setup(
     # 包名称
     name="pyfuncs",
     # 接口包版本号
-    version="0.0.18",
+    version="0.0.19",
     # 依赖的外部模块
     install_requires=[
         # 'tornado>=4.4.1',
