@@ -5,12 +5,12 @@
     "handlers": [
         {
             "handler_name": "logging_app",
-            "handler_filepath": "./logs/logging_{0:02d}.log",
+            "handler_filepath": "./logs/logging_{index:02d}.log",
             "handler_level": "DEBUG"
         },
         {
             "handler_name": "message_app",
-            "handler_filepath": "./logs/message_{0:02d}.log",
+            "handler_filepath": "./logs/message_{index:02d}.log",
             "handler_level": "DEBUG"
         }
     ]
