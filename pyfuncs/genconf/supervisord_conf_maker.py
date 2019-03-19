@@ -8,6 +8,7 @@ u"""
 """
 from __future__ import unicode_literals, division, print_function, absolute_import  # noqa
 import os
+import re
 import sys
 import six
 import codecs
@@ -23,6 +24,32 @@ from tornado import template
 # output_path = './output/'
 # # 指定模板文件
 # template_obj = template_loader.load('nginx_template.conf')
+
+JSON_CHECK = {
+    'service_name': six.string_types,
+    'progam_name': six.string_types,
+    'progam_cwd': six.string_types,
+    'progam_run_mode': six.string_types,
+    'progam_desc': list,
+    'progam_args': list,
+    'supervisord_args': list,
+}
+
+
+SARGS = ["command", "process_name", "numprocs", "directory", "umask",
+         "priority", "autostart", "autorestart", "startsecs", "startretries",
+         "exitcodes", "stopsignal", "stopwaitsecs", "stopasgroup",
+         "killasgroup", "user", "redirect_stderr", "stdout_logfile",
+         "stdout_logfile_maxbytes", "stdout_logfile_backups",
+         "stdout_capture_maxbytes", "stdout_events_enabled",
+         "stderr_logfile", "stderr_logfile_maxbytes",
+         "stderr_logfile_backups", "stderr_capture_maxbytes",
+         "stderr_events_enabled", "environment", "serverurl"]
+
+SARGS += ['numprocs_start']
+
+SARGS_REGEX = re.compile(
+    r'^;?({0})[ ]?=[ ]?([^ ]*?)[ ]?$'.format('|'.join(SARGS)))
 
 
 def open_conf(path='service_config.json', encoding='utf8'):
@@ -51,45 +78,37 @@ def init_config(config_json):
         raise Exception(
             'servers 配置错误 service_name名称重复 ')
 
-    port_set = {}
-    http_config_port = set()
-    for val in config_json['servers']:
+    if 'common_args' not in config_json:
+        config_json['common_args'] = {}
 
-        if val['progam_run_mode'] not in config_json['run_mode']:
-            raise Exception(
-                'run_mode 配置错误 [service_name {}][run_mode {}]'.format(
-                    val['service_name'], val['progam_run_mode']))
+    not_has_process_name = True
 
-        # 检查端口范围
-        ports = val['progam_ports']
-        ports[1] += 1
+    for server in config_json['servers']:
+        for key, _types in JSON_CHECK.items():
+            if key not in server or not isinstance(server[key], _types):
+                raise TypeError('无效{}参数[{}]'.format(
+                    key, server['service_name']))
 
-        if ports[1] <= 1000 or ports[0] <= 1000:
-            raise Exception(
-                'ports 配置错误 [service_name {}][ports {}]'.format(
-                    val['service_name'], ports))
+            if isinstance(server[key], six.string_types):
+                server[key] = server[key].format(**config_json['common_args'])
 
-        if not (0 <= (ports[1] - ports[0]) <= 99):
-            raise Exception(
-                'ports 配置错误 [service_name {}][ports {}]'.format(
-                    val['service_name'], ports))
+            if isinstance(server[key], list):
+                server[key] = [
+                    x.format(**config_json['common_args'])
+                    if isinstance(x, six.string_types) else x
+                    for x in server[key]
+                ]
 
-        if val['progam_addr'] not in port_set:
-            port_set[val['progam_addr']] = set()
+        for i in server['supervisord_args']:
+            if SARGS_REGEX.match(i) is None:
+                raise TypeError('无效supervisord_args参数[{}][{}]'.format(
+                    server['service_name'], i))
 
-        port_check = val.get('progam_port_check', True)
-        if port_check:
-            for i in range(ports[0], ports[1]):
-                if i in port_set[val['progam_addr']]:
-                    raise Exception(
-                        'ports 配置错误 端口冲突 [service_name {}][ports {}]'.format(
-                            val['service_name'], ports))
-                port_set[val['progam_addr']].add(i)
+            if i.find('process_name') >= 0:
+                not_has_process_name = False
 
-        val['port_high'] = int((ports[0] - (ports[0] % 100)) / 100)
-        val['port_low_min'] = int(min([ports[0] % 100, ports[1] % 100]))
-        val['port_low_diff'] = int(ports[1] - ports[0])
-        # print(val)
+    if not_has_process_name:
+        server['supervisord_args'].append('process_name=%(program_name)s')
 
     config_json['servers'] = [
         i for i in config_json['servers']
@@ -98,13 +117,15 @@ def init_config(config_json):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='nginx_conf_maker.')
+    parser = argparse.ArgumentParser(description='supervisord_maker.')
     parser.add_argument('--path', help='file path')
     parser.add_argument(
         '--tmpl_path', help='file path default:{pyfunc}/'
-        'genconf/template/nginx_template.conf')
+        'genconf/template/supervisord_template.conf')
     parser.add_argument(
         '--out_path', help='file path default:./output/nginx.conf')
+    parser.add_argument(
+        '--print_desc', help='print_desc', type=bool, default=True)
     parser.add_argument('--encode', help='file encode default:utf8')
     args = parser.parse_args()
 
@@ -125,11 +146,13 @@ def main():
 
     with codecs.open(args.tmpl_path, encoding=args.encode) as fs:
         template_obj = template.Template(fs.read())
+
     config_json = open_conf(args.path, args.encode)
     init_config(config_json)
 
     data = template_obj.generate(
         servers=config_json['servers'],
+        print_desc=args.print_desc,
         run_mode=config_json['run_mode']
     )
     save_conf(args.out_path, data, args.encode)
