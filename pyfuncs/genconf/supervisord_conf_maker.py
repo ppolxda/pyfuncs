@@ -69,6 +69,11 @@ def save_conf(path, data, encoding='utf8'):
     buf.close()
 
 
+def group_list(config):
+    config['servers'] = []
+    return config
+
+
 def init_config(config_json):
     server_names = [val['service_name'] for val in config_json['servers']]
     server_names.sort()
@@ -83,7 +88,23 @@ def init_config(config_json):
 
     not_has_process_name = True
 
+    # 检查分组参数
+    for server in config_json.get('groups', []):
+        for i in server['supervisord_args']:
+            if SARGS_REGEX.match(i) is None:
+                raise TypeError('无效supervisord_args参数[{}][{}]'.format(
+                    server['service_name'], i))
+
+    config_json['groups'] = {
+        group['group_name']: group_list(group)
+        for group in config_json.get('groups', [])
+    }
+
     for server in config_json['servers']:
+        group_name = server.get('group_name', None)
+        if group_name in config_json['groups']:
+            config_json['groups'][group_name]['servers'].append(server)
+
         for key, _types in JSON_CHECK.items():
             if key not in server or not isinstance(server[key], _types):
                 raise TypeError('无效{}参数[{}]'.format(
@@ -113,6 +134,10 @@ def init_config(config_json):
     config_json['servers'] = [
         i for i in config_json['servers']
         if i.get('progam_open', True)
+    ]
+
+    config_json['groups'] = [
+        group for group in config_json.get('groups', {}).values()
     ]
 
 
@@ -151,6 +176,7 @@ def main():
     init_config(config_json)
 
     data = template_obj.generate(
+        groups=config_json.get('groups', []),
         servers=config_json['servers'],
         print_desc=args.print_desc,
         run_mode=config_json['run_mode']
