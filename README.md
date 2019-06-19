@@ -1,17 +1,18 @@
 ﻿# 1. pyfuncs
 
 - [1. pyfuncs](#1-pyfuncs)
-    - [1.1. 模块安装](#11-%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85)
-    - [1.2. 换行符转换处理（line_break_conv）](#12-%E6%8D%A2%E8%A1%8C%E7%AC%A6%E8%BD%AC%E6%8D%A2%E5%A4%84%E7%90%86linebreakconv)
-    - [1.3. 自动创建"__init__.py"空文件（auto_py_init_file）](#13-%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%22initpy%22%E7%A9%BA%E6%96%87%E4%BB%B6autopyinitfile)
-    - [1.4. 简易配置生成工具](#14-%E7%AE%80%E6%98%93%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7)
-        - [1.4.1. nginx配置生成脚本（nginx_conf_maker）](#141-nginx%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACnginxconfmaker)
-        - [1.4.2. supervisord配置生成脚本（supervisord_conf_maker）](#142-supervisord%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACsupervisordconfmaker)
-        - [1.4.3. 配置生成脚本json配置文件说明](#143-%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACjson%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E)
-        - [1.4.4. 生成日志配置（logger_conf_maker）](#144-%E7%94%9F%E6%88%90%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AEloggerconfmaker)
-    - [1.5. 外挂字幕重命名脚本（sub_rename）](#15-%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95%E9%87%8D%E5%91%BD%E5%90%8D%E8%84%9A%E6%9C%ACsubrename)
-    - [1.6. 数据库升级脚本输出（sql_upgrade）](#16-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7%E8%84%9A%E6%9C%AC%E8%BE%93%E5%87%BAsqlupgrade)
-    - [1.7. 数据库脚本注释移除（sql_remove_comment）](#17-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E6%B3%A8%E9%87%8A%E7%A7%BB%E9%99%A4sqlremovecomment)
+  - [1.1. 模块安装](#11-%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85)
+  - [1.2. 换行符转换处理（line_break_conv）](#12-%E6%8D%A2%E8%A1%8C%E7%AC%A6%E8%BD%AC%E6%8D%A2%E5%A4%84%E7%90%86linebreakconv)
+  - [1.3. 自动创建"__init__.py"空文件（auto_py_init_file）](#13-%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%22initpy%22%E7%A9%BA%E6%96%87%E4%BB%B6autopyinitfile)
+  - [1.4. 简易配置生成工具](#14-%E7%AE%80%E6%98%93%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7)
+    - [1.4.1. nginx配置生成脚本（nginx_conf_maker）](#141-nginx%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACnginxconfmaker)
+    - [1.4.2. supervisord配置生成脚本（supervisord_conf_maker）](#142-supervisord%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACsupervisordconfmaker)
+    - [1.4.3. 配置生成脚本json配置文件说明](#143-%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%ACjson%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E)
+    - [1.4.4. 生成日志配置（logger_conf_maker）](#144-%E7%94%9F%E6%88%90%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AEloggerconfmaker)
+  - [1.5. 外挂字幕重命名脚本（sub_rename）](#15-%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95%E9%87%8D%E5%91%BD%E5%90%8D%E8%84%9A%E6%9C%ACsubrename)
+  - [1.6. 数据库升级脚本输出（sql_upgrade）](#16-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7%E8%84%9A%E6%9C%AC%E8%BE%93%E5%87%BAsqlupgrade)
+  - [1.7. 数据库脚本注释移除（sql_remove_comment）](#17-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E6%B3%A8%E9%87%8A%E7%A7%BB%E9%99%A4sqlremovecomment)
+  - [1.8. 数据库脚本拼接输出（sql_concat）](#18-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E6%8B%BC%E6%8E%A5%E8%BE%93%E5%87%BAsqlconcat)
 
 
 ## 1.1. 模块安装
@@ -229,4 +230,10 @@ python -m pyfuncs.scripts.sql_upgrade --input ./sql_upgrade_src.sql
 
 ```bash
 python -m pyfuncs.scripts.sql_remove_comment --input ./sql_upgrade_src.sql
+```
+
+## 1.8. 数据库脚本拼接输出（sql_concat）
+
+```bash
+python -m pyfuncs.scripts.sql_concat --input=./tests/sql_upgrade/**/*.sql --output=./tests/concat.sql
 ```

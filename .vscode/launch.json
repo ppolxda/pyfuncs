@@ -42,6 +42,19 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "pyfuncs.scripts.sql_concat",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "pyfuncs.scripts.sql_concat",
+            "env": {"PYTHONPATH":"${workspaceRoot}"},
+            "args": [
+                "--input=./tests/sql_upgrade/**/*.sql",
+                "--output=./tests/concat.sql"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "pyfuncs.genconf.nginx_conf_maker",
             "type": "python",
             "request": "launch",
